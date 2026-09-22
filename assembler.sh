@@ -69,8 +69,8 @@ if [[ "$line1" == "0" ]]; then
 fi
 
 if [[ "$line1" == "2" ]]; then
-    data1=$(sed -n '2p' "$filename")
-    data2=$(sed -n '3p' "$filename")
+    data1=$(sed -n '2p' "$filename" | tr -d '\r')
+    data2=$(sed -n '3p' "$filename" | tr -d '\r')
         
     if ! [[ "$data1" =~ ^[0-9]+$ ]] || (( data1 < 0 || data1 >= 128 )); then
         echo "Error: invalid data on line 2."
@@ -91,7 +91,7 @@ if [[ "$line1" == "2" ]]; then
     foundQuit=0
  
     while [ "$lineNum" -le "$totalLines" ]; do
-        line=$(sed -n "${lineNum}p" "$filename")
+        line=$(sed -n "${lineNum}p" "$filename" | tr -d '\r')
  
         if [ -z "$line" ]; then
             echo "Error: empty line $lineNum."
