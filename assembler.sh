@@ -24,6 +24,11 @@ bin_to_hex() {
     printf '%02x' "$((2#$1))"
 }
 
+if [ $# -eq 0 ]; then
+    echo "usage: no arg is provided."
+    exit 1
+fi
+
 if [ $# -ne 1 ]; then
     echo "Error: assembler requires exactly one argument."
     exit 1
@@ -85,7 +90,7 @@ if [[ "$line1" == "2" ]]; then
     dataArray+=("$(bin_to_hex "$(decimal_to_binary "$data1")")")
     dataArray+=("$(bin_to_hex "$(decimal_to_binary "$data2")")")
  
-    totalLines=$(wc -l < "$filename")
+    totalLines=$(awk 'END {print NR}' "$filename")
     lineNum=4
     count=0
     foundQuit=0
